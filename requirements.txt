@@ -20,3 +20,4 @@ sqlparse==0.4.1
 typing-extensions==3.7.4.3
 Voice==0.1.0
 yarl==1.6.3
+youtube-dl==2021.2.10
