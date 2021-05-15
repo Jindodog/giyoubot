@@ -139,14 +139,15 @@ async def p(ctx, *, url):
     FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
 
     if not vc.is_playing():
+        musicnow.insert(0, entireText)
         with YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(url, download=False)
         URL = info['formats'][0]['url']
         vc.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
-        await ctx.send(embed = discord.Embed(title= "노래 재생", description = "현재 " + url + "을(를) 재생하고 있다.", color = discord.Colour.blue()))
+        await ctx.send(embed = discord.Embed(title= "노래 재생", description = "현재 " + musicnow[0] + "을(를) 재생하고 있다.", color = discord.Colour.blue()))
     else:
-        user.append(msg)
-        result, URLTEST = title(msg)
+        user.append(url)
+        result, URLTEST = title(url)
         song_queue.append(URLTEST)
         await ctx.send(result + " 을(를) 대기열로 추가시켰다")
 
