@@ -25,8 +25,8 @@ async def on_ready():
     change_status.start()
     print('[알림][冨岡 義勇 봇(음악)이 성공적으로 구동되었습니다.]')
 
-    #if not discord.opus.is_loaded():
-     #   discord.opus.load_opus('opus')
+    if not discord.opus.is_loaded():
+        discord.opus.load_opus('opus')
 
 
 #노래 저장 배열
