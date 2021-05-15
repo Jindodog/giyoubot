@@ -10,6 +10,7 @@ cffi
 chardet
 discord
 discord.py
+discord.py[voice]
 Django
 ffmpeg
 ffmpeg-python
