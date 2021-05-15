@@ -41,7 +41,7 @@ userFlist = []
 allplaylist = []
 
 
-def 제목(msg):
+def title(msg):
     global music
 
     YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
@@ -124,7 +124,7 @@ async def on_member_join(member):
 
 # 음성 채널 노래
 @bot.command()
-async def play(ctx, *, url):
+async def p(ctx, *, url):
 
     try:
         global vc
@@ -159,10 +159,13 @@ async def 재생(ctx, *, msg):
         try:
             await vc.move_to(ctx.message.author.voice.channel)
         except:
-             embed = discord.Embed(color=discord.Colour.red(), title="...이미 들어와있다")
+             embed = discord.Embed(color=discord.Colour.blue(), title="...이미 들어와있다")
              await ctx.message.channel.send(embed=embed)
     
     if not vc.is_playing():
+        options = webdriver.ChromeOptions()
+        options.add_argument("headless")
+        
         global entireText
         YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
@@ -176,18 +179,10 @@ async def 재생(ctx, *, msg):
         entireNum = entire[0]
         entireText = entireNum.text.strip()
         musicurl = entireNum.get('href')
-        url = 'https://www.youtube.com'+musicurl 
-
-        with YoutubeDL(YDL_OPTIONS) as ydl:
-            info = ydl.extract_info(url, download=False)
-        URL = info['formats'][0]['url']
-        await ctx.send(embed = discord.Embed(title= "노래 재생", description = "현재 " + entireText + "을(를) 재생하고 있습니다.", color = 0x00ff00))
-        vc.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
-    else:
-        await ctx.send("이미 노래가 재생 중이라 노래를 재생할 수 없어요!")
+        url = 'https://www.youtube.com'+musicurl
 
         driver.quit()
-
+       
         musicnow.insert(0, entireText)
         with YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(url, download=False)
@@ -212,7 +207,7 @@ async def 멜론차트(ctx):
         try:
             await vc.move_to(ctx.message.author.voice.channel)
         except:
-             embed = discord.Embed(color=discord.Colour.red(), title="...이미 들어와있다")
+             embed = discord.Embed(color=discord.Colour.blue(), title="...이미 들어와있다")
              await ctx.message.channel.send(embed=embed)
     
     if not vc.is_playing():
@@ -224,7 +219,7 @@ async def 멜론차트(ctx):
         YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
             
-        driver = load_chrome_driver()
+        chromedriver_dir = r"chromedriver.exe"
         driver = webdriver.Chrome(chromedriver_dir, options = options)
         driver.get("https://www.youtube.com/results?search_query=멜론차트")
         source = driver.page_source
