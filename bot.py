@@ -484,7 +484,7 @@ async def 지금노래(ctx):
     if not vc.is_playing():
         await ctx.send("지금은 노래가 재생되지 않는다..")
     else:
-        await ctx.send(embed = discord.Embed(title = "지금노래", description = "현재 " + entireText + "을(를) 재생하고 있다.", color = discord.Colour.blue()))
+        await ctx.send(embed = discord.Embed(title = "지금노래", description = "현재 " + musicnow[0] + "을(를) 재생하고 있다.", color = discord.Colour.blue()))
 
 
 
