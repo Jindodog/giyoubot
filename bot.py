@@ -103,14 +103,16 @@ def play_next(ctx):
             client.loop.create_task(vc.disconnect())
 
 def load_chrome_driver():
+      
     options = webdriver.ChromeOptions()
 
     options.binary_location = os.getenv('GOOGLE_CHROME_BIN')
 
-    options.add_arguments('--headless')
+    options.add_argument('--headless')
+    # options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
 
-    return webdriver.Chrome(executable_path = str(os.environ.get('CHROME_EXECUTABLE_PATH')), chrome_options=options)
+    return webdriver.Chrome(executable_path=str(os.environ.get('CHROME_EXECUTABLE_PATH')), chrome_options=options)
 
 
 # 서버 입성 인사
